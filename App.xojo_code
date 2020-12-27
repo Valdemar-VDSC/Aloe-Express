@@ -1,78 +1,58 @@
 #tag Class
 Protected Class App
-Inherits ConsoleApplication
+Inherits AloeXWS.Application
 	#tag Event
-		Function Run(args() as String) As Integer
-		  // Create an instance of AloeExpress.Server, and configure it with optional command-line arguments.
-		  Dim Server As New AloeExpress.Server(args)
+		Sub HandleRequest(Request As AloeXWS.Request, Response As AloeXWS.Response)
+		  // Route the request.
 		  
-		  // Configure server-level session management. 
-		  // This is used by the DemoSessions demo module.
-		  Server.SessionsEnabled = True
 		  
-		  // Configure server-level caching.
-		  // This is used by the DemoCaching demo module.
-		  Server.CachingEnabled = True
+		  // If this is a request for the root...
+		  If Request.PathComponents.Count = 0 Then
+		    Response.ContentType = "text/html"
+		    Response.Content = "<div style=""text-align: center; font-size: 18pt;"">Aloe XWS " + AloeXWS.MajorVersion.ToString + "." + AloeXWS.MinorVersion.ToString + "</div>" _
+		    + "<div style=""text-align: center; font-size: 14pt;"">Running on Xojo " + XojoVersionString + ".</div>"
+		    Return
+		  End If
 		  
-		  // Start the server.
-		  Server.Start
+		  // If this is a request for the "echo" function...
+		  If Request.Path = "echo" Then
+		    Response.Content = Echo( Request )
+		    Return
+		  End If
 		  
-		End Function
+		  // If this is a request for the API demo...
+		  If Request.PathComponents(0) = "apidemo" Then
+		    Dim rh As New RESTAPIDemo.RequestHandler( Request, Response )
+		    Return
+		  End If
+		  
+		  // The request could not be processed.
+		  Response.Headers.Value( "X-Error" ) = "Unable to route the request."
+		  Response.Status = 404
+		  
+		End Sub
 	#tag EndEvent
 
 
-	#tag Method, Flags = &h0
-		Sub RequestHandler(Request As AloeExpress.Request)
-		  // Processes an HTTP request.
+	#tag Method, Flags = &h0, CompatibilityFlags = API2Only and ( (TargetConsole and (Target64Bit)) or  (TargetWeb and (Target64Bit)) or  (TargetDesktop and (Target64Bit)) or  (TargetIOS and (Target64Bit)) )
+		Function Echo(Request As AloeXWS.Request) As String
+		  // Returns a JSON string representation of the request.
 		  
-		  // Uncomment the demo module that you want to use.
-		  Break
+		  Dim J As New JSONItem
+		  J.Value( "Body" ) = Request.Body
+		  J.Value( "ContentLength" ) = Request.ContentLength
+		  J.Value( "ContentType" ) = Request.ContentType
+		  J.Value( "GET" ) = Request.GET
+		  J.Value( "Headers" ) = Request.Headers
+		  J.Value( "Method" ) = Request.Method
+		  J.Value( "Path" ) = Request.Path
+		  J.Value( "PathComponents" ) = Request.PathComponents
+		  J.Value( "POST" ) = Request.POST
+		  J.Value( "RemoteAddress" ) = Request.RemoteAddress
 		  
-		  // Hello, world demo.
-		  'DemoHelloWorld.RequestProcess(Request)
-		  // Or simply...
-		  'Request.Response.Content = "Hello, world!"
+		  Return J.ToString
 		  
-		  // AloeExpress.CacheEngine.
-		  'DemoCaching.RequestProcess(Request)
-		  
-		  // AloeExpress.Logger.
-		  'DemoLogging.RequestProcess(Request)
-		  
-		  // Multipart forms demo.
-		  'DemoMultipartForms.RequestProcess(Request)
-		  
-		  // AloeExpress.SessionEngine.
-		  'DemoSessions.RequestProcess(Request)
-		  
-		  // Demonstrates the use of client-side templating.
-		  'DemoTemplatesClientSide.RequestProcess(Request)
-		  
-		  // Demonstrates the use of server-side templates.
-		  'DemoTemplatesServerSide.RequestProcess(Request)
-		  
-		  // A simple chat app that demonstrates WebSocket support.
-		  'DemoWebSockets.RequestProcess(Request)
-		  
-		  // Demonstrates Xojoscript support.
-		  'DemoXojoScript.RequestProcess(Request)
-		  
-		  // AloeExpress.ServerThread demo.
-		  // *** Before using this demo... *** 
-		  // Replace the App.Run event handler with this: 
-		  // DemoServerThreads.ServersLaunch
-		  // Test ports are: 64000, 64001, 64002, and 64003.
-		  // Requests sent to 64003 will respond with an error,
-		  // to demonstrate a misconfigured app.
-		  'DemoServerThreads.RequestProcess(Request)
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		End Sub
+		End Function
 	#tag EndMethod
 
 

@@ -11,4 +11,8 @@
 				Begin BuildProjectStep Build
 				End
 			End
+			Begin BuildStepList Xojo Cloud
+				Begin BuildProjectStep Build
+				End
+			End
 #tag EndBuildAutomation
