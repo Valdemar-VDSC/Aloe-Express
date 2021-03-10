@@ -125,6 +125,13 @@ Protected Module AloeXWS
 		
 	#tag EndNote
 
+	#tag Note, Name = 2021.4
+		Updating to Xojo 2021r1
+		Correction of Encondings
+		Add language translation for days and months
+		
+	#tag EndNote
+
 	#tag Note, Name = About
 		-----------------------------------------------------------------------------------------
 		About
