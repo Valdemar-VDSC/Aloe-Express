@@ -1,6 +1,6 @@
 #tag Class
 Protected Class RequestHandler
-	#tag CompatibilityFlags = API2Only and ( (TargetConsole and (Target64Bit)) or  (TargetWeb and (Target64Bit)) or  (TargetDesktop and (Target64Bit)) or  (TargetIOS and (Target64Bit)) )
+	#tag CompatibilityFlags = API2Only and ( ( TargetConsole and ( Target64Bit ) ) or ( TargetWeb and ( Target64Bit ) ) or ( TargetDesktop and ( Target64Bit ) ) or ( TargetIOS and ( Target64Bit ) ) )
 	#tag Method, Flags = &h0, CompatibilityFlags = API2Only and ( (TargetConsole and (Target64Bit)) or  (TargetWeb and (Target64Bit)) or  (TargetDesktop and (Target64Bit)) or  (TargetIOS and (Target64Bit)) )
 		Sub Constructor(Request As AloeXWS.Request, Response As AloeXWS.Response)
 		  // Store the request and response as properties.

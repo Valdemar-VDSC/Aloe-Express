@@ -1,6 +1,6 @@
 #tag Module
 Protected Module RESTAPIDemo
-	#tag CompatibilityFlags = API2Only and ( (TargetConsole and (Target64Bit)) or  (TargetWeb and (Target64Bit)) or  (TargetDesktop and (Target64Bit)) or  (TargetIOS and (Target64Bit)) )
+	#tag CompatibilityFlags = API2Only and ( ( TargetConsole and ( Target64Bit ) ) or ( TargetWeb and ( Target64Bit ) ) or ( TargetDesktop and ( Target64Bit ) ) or ( TargetIOS and ( Target64Bit ) ) )
 	#tag ViewBehavior
 		#tag ViewProperty
 			Name="Name"

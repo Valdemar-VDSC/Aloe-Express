@@ -1,6 +1,6 @@
 #tag Module
 Protected Module AloeXWS
-	#tag CompatibilityFlags = API2Only and ( (TargetConsole and (Target64Bit)) or  (TargetWeb and (Target64Bit)) or  (TargetDesktop and (Target64Bit)) )
+	#tag CompatibilityFlags = API2Only and ( ( TargetConsole and ( Target64Bit ) ) or ( TargetWeb and ( Target64Bit ) ) or ( TargetDesktop and ( Target64Bit ) ) )
 	#tag Method, Flags = &h0, CompatibilityFlags = API2Only and ( (TargetConsole and (Target64Bit)) or  (TargetWeb and (Target64Bit)) or  (TargetDesktop and (Target64Bit)) or  (TargetIOS and (Target64Bit)) )
 		Function DateToRFC1123(TheDate As DateTime = Nil) As Text
 		  // Returns a  in RFC 822 / 1123 format.
@@ -17,19 +17,19 @@ Protected Module AloeXWS
 		  
 		  Select Case TheDate.DayOfWeek
 		  Case 1
-		    tmp = tmp + "Sun"
+		    tmp = tmp + Day1 '"Sun"
 		  Case 2
-		    tmp = tmp + "Mon"
+		    tmp = tmp + Day2 '"Mon"
 		  Case 3
-		    tmp = tmp + "Tue"
+		    tmp = tmp + Day3 '"Tue"
 		  Case 4
-		    tmp = tmp + "Wed"
+		    tmp = tmp + Day4 '"Wed"
 		  Case 5
-		    tmp = tmp + "Thu"
+		    tmp = tmp + Day5 '"Thu"
 		  Case 6
-		    tmp = tmp + "Fri"
+		    tmp = tmp + Day6 '"Fri"
 		  Case 7
-		    tmp = tmp + "Sat"
+		    tmp = tmp + Day7 '"Sat"
 		  End Select
 		  
 		  tmp = tmp + ", "
@@ -40,29 +40,29 @@ Protected Module AloeXWS
 		  
 		  Select Case TheDate.Month
 		  Case 1
-		    tmp = tmp + "Jan" 
+		    tmp = tmp + Month1 '"Jan" 
 		  Case 2
-		    tmp = tmp + "Feb" 
+		    tmp = tmp + Month2 '"Feb" 
 		  Case 3
-		    tmp = tmp + "Mar"
+		    tmp = tmp + Month3 '"Mar"
 		  Case 4
-		    tmp = tmp + "Apr"
+		    tmp = tmp + Month4 '"Apr"
 		  Case 5
-		    tmp = tmp + "May" 
+		    tmp = tmp + Month5 '"May" 
 		  Case 6
-		    tmp = tmp + "Jun" 
+		    tmp = tmp + Month6 '"Jun" 
 		  Case 7
-		    tmp = tmp + "Jul" 
+		    tmp = tmp + Month7 '"Jul" 
 		  Case 8
-		    tmp = tmp + "Aug"
+		    tmp = tmp + Month8 '"Aug"
 		  Case 9
-		    tmp = tmp + "Sep" 
+		    tmp = tmp + Month9 '"Sep" 
 		  Case 10
-		    tmp = tmp + "Oct"
+		    tmp = tmp + Month10 '"Oct"
 		  Case 11
-		    tmp = tmp + "Nov" 
+		    tmp = tmp + Month11 '"Nov" 
 		  Case 12
-		    tmp = tmp + "Dec"
+		    tmp = tmp + Month12 '"Dec"
 		  End Select
 		  
 		  tmp = tmp + " "
@@ -211,10 +211,86 @@ Protected Module AloeXWS
 	#tag EndNote
 
 
+	#tag Constant, Name = Day1, Type = Text, Dynamic = True, Default = \"Sun", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Dim"
+	#tag EndConstant
+
+	#tag Constant, Name = Day2, Type = Text, Dynamic = True, Default = \"Mon", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Lun"
+	#tag EndConstant
+
+	#tag Constant, Name = Day3, Type = Text, Dynamic = True, Default = \"Tue", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Mar"
+	#tag EndConstant
+
+	#tag Constant, Name = Day4, Type = Text, Dynamic = True, Default = \"Wen", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Mer"
+	#tag EndConstant
+
+	#tag Constant, Name = Day5, Type = Text, Dynamic = True, Default = \"Sun", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Jeu"
+	#tag EndConstant
+
+	#tag Constant, Name = Day6, Type = Text, Dynamic = True, Default = \"Sun", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Ven"
+	#tag EndConstant
+
+	#tag Constant, Name = Day7, Type = Text, Dynamic = True, Default = \"Sat", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Sam"
+	#tag EndConstant
+
 	#tag Constant, Name = MajorVersion, Type = Double, Dynamic = False, Default = \"2020", Scope = Public, CompatibilityFlags = API2Only and ( (TargetConsole and (Target64Bit)) or  (TargetWeb and (Target64Bit)) or  (TargetDesktop and (Target64Bit)) or  (TargetIOS and (Target64Bit)) )
 	#tag EndConstant
 
 	#tag Constant, Name = MinorVersion, Type = Double, Dynamic = False, Default = \"3", Scope = Public, CompatibilityFlags = API2Only and ( (TargetConsole and (Target64Bit)) or  (TargetWeb and (Target64Bit)) or  (TargetDesktop and (Target64Bit)) or  (TargetIOS and (Target64Bit)) )
+	#tag EndConstant
+
+	#tag Constant, Name = Month1, Type = Text, Dynamic = True, Default = \"Jan", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Jan"
+	#tag EndConstant
+
+	#tag Constant, Name = Month10, Type = Text, Dynamic = True, Default = \"Oct", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Oct"
+	#tag EndConstant
+
+	#tag Constant, Name = Month11, Type = Text, Dynamic = True, Default = \"Nov", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Nov"
+	#tag EndConstant
+
+	#tag Constant, Name = Month12, Type = Text, Dynamic = True, Default = \"Dec", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"D\xC3\xA9c"
+	#tag EndConstant
+
+	#tag Constant, Name = Month2, Type = Text, Dynamic = True, Default = \"Feb", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"F\xC3\xA9v"
+	#tag EndConstant
+
+	#tag Constant, Name = Month3, Type = Text, Dynamic = True, Default = \"Mar", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Mar"
+	#tag EndConstant
+
+	#tag Constant, Name = Month4, Type = Text, Dynamic = True, Default = \"Apr", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Avr"
+	#tag EndConstant
+
+	#tag Constant, Name = Month5, Type = Text, Dynamic = True, Default = \"May", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Mai"
+	#tag EndConstant
+
+	#tag Constant, Name = Month6, Type = Text, Dynamic = True, Default = \"Jun", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Jui"
+	#tag EndConstant
+
+	#tag Constant, Name = Month7, Type = Text, Dynamic = True, Default = \"Jul", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Juil"
+	#tag EndConstant
+
+	#tag Constant, Name = Month8, Type = Text, Dynamic = True, Default = \"Aug", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Aou"
+	#tag EndConstant
+
+	#tag Constant, Name = Month9, Type = Text, Dynamic = True, Default = \"Sep", Scope = Public
+		#Tag Instance, Platform = Any, Language = fr, Definition  = \"Sep"
 	#tag EndConstant
 
 

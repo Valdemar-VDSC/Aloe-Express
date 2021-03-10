@@ -1,7 +1,7 @@
 #tag Class
 Protected Class Application
 Inherits WebApplication
-	#tag CompatibilityFlags = API2Only and ( (TargetWeb and (Target64Bit)) )
+	#tag CompatibilityFlags = API2Only and ( ( TargetWeb and ( Target64Bit ) ) )
 	#tag Event
 		Function HandleURL(Request As WebRequest, Response As WebResponse) As Boolean
 		  // Create a Web Service Request instance based on the original WebRequest.

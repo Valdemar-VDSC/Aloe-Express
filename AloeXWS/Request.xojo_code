@@ -1,16 +1,16 @@
 #tag Class
 Protected Class Request
-	#tag CompatibilityFlags = API2Only and ( (TargetConsole and (Target64Bit)) or  (TargetWeb and (Target64Bit)) or  (TargetDesktop and (Target64Bit)) or  (TargetIOS and (Target64Bit)) )
+	#tag CompatibilityFlags = API2Only and ( ( TargetConsole and ( Target64Bit ) ) or ( TargetWeb and ( Target64Bit ) ) or ( TargetDesktop and ( Target64Bit ) ) or ( TargetIOS and ( Target64Bit ) ) )
 	#tag Method, Flags = &h0, CompatibilityFlags = API2Only and ( (TargetConsole and (Target64Bit)) or  (TargetWeb and (Target64Bit)) or  (TargetDesktop and (Target64Bit)) or  (TargetIOS and (Target64Bit)) )
 		Sub Constructor(Request As WebRequest)
 		  // Get the method.
-		  Method = Request.Method
+		  Method = Request.Method.DefineEncoding(Encodings.UTF8)
 		  
 		  // Get the client address.
 		  RemoteAddress = Request.RemoteAddress
 		  
 		  // Get the request path.
-		  Path = Request.Path
+		  Path = Request.Path.DefineEncoding(Encodings.UTF8)
 		  
 		  // Strip the trailing slash from the path.
 		  If Path.Right( 1 ) = "/" Then
@@ -27,7 +27,12 @@ Protected Class Request
 		  Body = Request.Body
 		  
 		  // Create the path components by splitting the Path.
-		  PathComponents = Request.Path.Split( "/" )
+		  var AllPaths() As String
+		  AllPaths = Request.Path.Split( "/" )
+		  for Each mPath As String in AllPaths 
+		    PathComponents.Append mPath.DefineEncoding(Encodings.UTF8)
+		  next
+		  
 		  
 		  // Create the GET dictionary.
 		  GET = New Dictionary
@@ -38,9 +43,9 @@ Protected Class Request
 		  
 		  // Loop over the URL params to create the GET dictionary.
 		  For i As Integer = 0 To GETParams.LastRowIndex
-		    Dim ThisParam As String = GETParams( i )
-		    Dim Key As String = ThisParam.NthField( "=", 1 ) 
-		    Dim Value As String = ThisParam.NthField( "=", 2 )
+		    Dim ThisParam As String = GETParams( i ).DefineEncoding(Encodings.UTF8)
+		    Dim Key As String = ThisParam.NthField( "=", 1 ) .DefineEncoding(Encodings.UTF8)
+		    Dim Value As String = ThisParam.NthField( "=", 2 ).DefineEncoding(Encodings.UTF8)
 		    GET.Value(Key) = URLDecode( Value )
 		  Next
 		  
@@ -54,9 +59,9 @@ Protected Class Request
 		    
 		    // Loop over the URL params to create the POST dictionary.
 		    For i As Integer = 0 To POSTParams.LastRowIndex
-		      Dim ThisParam As String = POSTParams( i )
-		      Dim Key As String = ThisParam.NthField( "=", 1 )
-		      Dim Value As String = ThisParam.NthField( "=", 2 )
+		      Dim ThisParam As String = POSTParams( i ).DefineEncoding(Encodings.UTF8)
+		      Dim Key As String = ThisParam.NthField( "=", 1 ).DefineEncoding(Encodings.UTF8)
+		      Dim Value As String = ThisParam.NthField( "=", 2 ).DefineEncoding(Encodings.UTF8)
 		      POST.Value( Key ) = URLDecode( Value )
 		    Next
 		    
@@ -66,7 +71,7 @@ Protected Class Request
 		  Headers = New Dictionary
 		  For Each HeaderName As String In Request.HeaderNames
 		    If HeaderName <> "" Then
-		      Headers.Value( HeaderName ) = Request.Header( HeaderName )
+		      Headers.Value( HeaderName ) = Request.Header( HeaderName ).DefineEncoding(Encodings.UTF8)
 		    End If
 		  Next
 		  
